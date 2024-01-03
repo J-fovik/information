@@ -1,20 +1,26 @@
-# 一、项目创建
+# 一、项目插件
 
 **(1): 如果是进行vue2 项目开发,则需要安装vue2 对应的插件 vetur**
 
 **(2): 如果是进行vue3 项目开发,则需要安装vue3 对应的插件 volar**
 
-# 二、引入组件库Element-Plus
+
+
+
+
+# 二、引入组件库
+
+### 1、引入Element-Plus组件库
 
 [Element-Plus 官网地址](https://element-plus.gitee.io/zh-CN/)
 
-### 1. 安装依赖
+(1)、安装依赖
 
 ```sh
 npm install element-plus --save
 ```
 
-### 2. 自动按需导入
+(2)、自动按需导入
 
 这种方式不需要导入任何组件，可以直接使用
 
@@ -22,14 +28,14 @@ npm install element-plus --save
 npm install -D unplugin-vue-components unplugin-auto-import
 ```
 
-### 3.引入css样式
+(3)、引入css样式
 
 ```js
 // main.is
 import 'element-plus/dist/index.css'
 ```
 
-### 4. 配置文件配置
+(4)、配置文件配置
 
 ```js
 // vite.config.js
@@ -52,7 +58,7 @@ export default defineConfig({
 })
 ```
 
-### 5.引入Icon 图标
+(5)、引入Icon 图标
 
 官网：https://element-plus.gitee.io/zh-CN/component/icon.html#%E6%B3%A8%E5%86%8C%E6%89%80%E6%9C%89%E5%9B%BE%E6%A0%87
 
@@ -104,13 +110,13 @@ import { Edit } from '@element-plus/icons-vue' // 首字母必须大写
 - vue2项目要下载第三版本的路由
 - vue3项目要下载第四版本的路由
 
-### 1. 依赖安装
+### 1、依赖安装
 
 ```sh
 npm install vue-router@4 -S
 ```
 
-### 2. 创建文件目录 
+### 2、创建文件目录 
 
 src/router/index.js(ts)
 
@@ -134,7 +140,7 @@ export default router
 
 
 
-### 3. 创建notfound页面
+### 3、创建notfound页面
 
 ```js
 <template>
@@ -148,7 +154,7 @@ export default router
 </template>
 ```
 
-### 4. 配置404页面的路由展示
+### 4、配置404页面的路由展示
 
 ```js
 // router.js
@@ -167,7 +173,7 @@ const router = createRouter({
 
 
 
-### 5. 配置路由前置守卫
+### 5、配置路由前置守卫
 
 ```js
 // ...
@@ -193,7 +199,7 @@ export default router
 
 
 
-### 6. 入口文件导入
+### 6、入口文件导入
 
 ```js
 // main.js
@@ -202,7 +208,7 @@ import router from "./router/index"
 createApp(App).use(router).use(...).mount('#app')
 ```
 
-# 四、配置src路径别名
+# 三、配置src路径别名
 
 ```js
 //vite.config.js
@@ -223,17 +229,17 @@ export default defineConfig({
 
 
 
-# 五、axios数据请求
+# 四、axios数据请求
 
-### 1. 安装axios
+### 1、安装axios
 
 ```sh
 npm install axios -S
 ```
 
-### 2. axios简单封装
+### 2、axios简单封装
 
-##### src下创建utils/request.js
+(1).src下创建utils/request.js
 
 ```js
 // F封装axios 数据请求
@@ -289,7 +295,7 @@ export default instance
 
 
 
-#####  src下创建aip/login.js
+(2).src下创建aip/login.js
 
 定义登录接口
 
@@ -324,7 +330,7 @@ export function loginApi(data) {
 
 
 
-### 3.   设置反向代理解决跨域
+### 3、设置反向代理解决跨域
 
 查看文档：https://cn.vitejs.dev/config/server-options.html
 
@@ -348,15 +354,17 @@ server: {// server配置是配置的开发服务器，只对开发服务器起�
 
 
 
-# 六、引入vuex
+# 五、引入状态管理库
 
-### 1. 依赖安装
+### 1、引入vuex
+
+**(1). 依赖安装**
 
 ```sh
 npm install vuex@next --save
 ```
 
-### 2. 创建文件目录
+**(2). 创建文件目录**
 
 src/store/index.js
 
@@ -384,7 +392,7 @@ const store = createStore({
 export default store
 ```
 
-### 3. 入口文件导入
+**(3). 入口文件导入**
 
 ```js
 // main.js
@@ -395,7 +403,7 @@ createApp(App).use(router).use(store).mount('#app')
 
 
 
-### 4. 实现vuex数据持久化
+**(4). 实现vuex数据持久化**
 
 第一步：在项目中安装插件
 
@@ -474,9 +482,88 @@ const store = newVuex.Store({
 
 
 
+### 2、引入pinia
+
+**(1). 依赖安装**
+
+```sh
+npm install pinia
+```
+
+**(2). 创建文件目录**
+
+src/store/index.js
+
+```js
+// 定义store 仓库
+import { ref } from 'vue'
+import { defineStore } from 'pinia'
+export const useUserStore = defineStore('user', () => {
+  // 定义数据状态state
+  const token = ref<string>('')// 定义token
+  interface userinfoType {  // 定义userinfo类型
+    avatar: string
+    gender: number
+    id: number
+    nickname: string
+    username: string
+  }
+  const userinfo = ref<userinfoType | {}>({})  // 定义userinfo
+
+  // 定义actions
+  function settoken(data: string) {// 定义修改token
+    token.value = data
+  }
+  function setuserinfo(data: any) {// 定义修改
+    userinfo.value = data
+  }
+  return { setuserinfo, settoken, userinfo, token }// 导出数据state和方法actions
+})
+```
+
+**(3). 在其他文件使用仓库信息**
+
+```js
+// 导入user仓库的额方法
+import { useUserStore } from '@/stores/user'
+// 结构出ref方法包裹userStore不会丢失数据
+import { storeToRefs } from 'pinia';
+// 创建仓库
+const userStore = useUserStore()
+// console.log(userStore);
+// 解构state响应式数据
+const { token, userinfo } = storeToRefs(userStore)
+// 解构actions方法
+const { settoken, setuserinfo } = userStore
+```
 
 
-# 七、其他
+
+**(4). 实现pinia 数据持久化**
+
+第一步：在项目中安装插件
+
+```sh
+npm install pinia-persistedstate-plugin
+```
+
+第二步：在 入口文件main.ts下, 配置store 的数据的持久化
+
+```js
+import { createPinia } from "pinia";
+// 导入pinia持久化插件
+import { createPersistedState } from "pinia-persistedstate-plugin";
+// 配置持久化
+const store = createPinia();
+store.use(createPersistedState());
+app.use(store)
+```
+
+
+
+
+
+# 六、引入css样式库
 
 ### 1、项目样式重置
 
@@ -534,180 +621,58 @@ import 'virtual:windi.css'
 
 
 
-### 3、键盘监听
-
-```js
-// 监听回车事件
-function onKeyUp(e){
-    if(e.key == "Enter") onSubmit()//执行提交事件
-}
-// 添加键盘监听
-onMounted(()=>{
-    document.addEventListener("keyup",onKeyUp)
-})
-// 移除键盘监听
-onBeforeUnmount(()=>{
-    document.removeEventListener("keyup",onKeyUp)
-})
-```
 
 
+### 3、Animate.css 动画库
 
-### 4、全局loading进度条实现
-
-文档：https://www.npmjs.com/package/nprogress
+文档：https://animate.style/#migration
 
 **（1）下载依赖**
 
 ```sh
-npm i nprogress
+npm install animate.css --save
 ```
 
-**（2）引入css**
+**（2）页面使用**
 
 ```js
-// main.js
-import "nprogress/nprogress.css"
+import 'animate.css';
 ```
 
-**（3）封装方法**
+**（3）查看代码**
 
-```js
-import nprogress from 'nprogress'
-// 显示全屏loading
-export function showFullLoading(){
-  nprogress.start()
-}
-// 隐藏全屏loading
-export function hideFullLoading(){
-  nprogress.done()
-}
-```
+根据：https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.css 文档查看动画代码
 
-**（4）全局前后守卫使用**
+注：配合过渡动画使用
 
-```js
-import { 
-    showFullLoading,
-    hideFullLoading
-} from "~/composables/util"
-// 全局前置守卫
-router.beforeEach(async (to,from,next)=>{
-    // 显示loading
-    showFullLoading()
-	next()
-})
-// 全局后置守卫
-router.afterEach((to, from) => hideFullLoading())
-```
-
-
-
-### 5、引入Cookie存储数据
-
-方式一：
-
-官网：https://vueuse.org/integrations/useCookies/#usecookies
-
-下载依赖：
-
-```sh
-npm i @vueuse/integrations
-```
-
-```sh
-npm i universal-cookie
-```
-
-定义js文件简单封装
-
-```js
-import { useCookies } from '@vueuse/integrations/useCookies'
-const TokenKey = "admin-token"
-const cookie=useCookies()
-// 获取token
-export function getToken(){
-    return cookie.get(TokenKey)
-}
-// 设置token
-export function setToken(token){
-    return cookie.set(TokenKey,token)
-}
-// 清楚token
-export function removeToken(){
-    return cookie.remove(TokenKey)
-}
-```
-
-
-
-方式二：
-
-1. **安装插件：** 你可以使用 `vue-cookies` 这样的插件来方便地操作 Cookie。首先，安装该插件：
-
-```sh
-npm install vue-cookies
-```
-
-1. **在 Vue 项目中使用：** 在你的 Vue 项目中，你需要引入并配置 `vue-cookies` 插件。在你的入口文件（例如 `main.js`）中进行配置：
-
-```js
-// main.js
-import Vue from 'vue';
-import VueCookies from 'vue-cookies';
-
-Vue.use(VueCookies);
-
-// 设置全局的 Cookie 选项，例如过期时间等
-Vue.$cookies.config('7d'); // 设置 Cookie 的过期时间为 7 天
-```
-
-1. **使用 Cookie 存储和获取数据：** 一旦配置完毕，你就可以在组件中使用 `this.$cookies` 来进行 Cookie 数据的存储和获取。
-
-```js
-export default {
-  methods: {
-    saveDataToCookie() {
-      // 存储数据到 Cookie
-      this.$cookies.set('key', 'value');
-    },
-    getDataFromCookie() {
-      // 从 Cookie 中获取数据
-      const value = this.$cookies.get('key');
-      console.log(value);
-    },
-  },
-};
-```
-
-请注意，Cookie 适合存储少量的数据，因为每个请求都会将 Cookie 发送到服务器，过多的 Cookie 数据可能会影响性能。对于较大的数据存储需求，你可能会考虑使用其他持久化方案，如 Local Storage 或 Vuex 插件。
-
-此外，考虑到安全性，不应该将敏感信息存储在 Cookie 中，因为 Cookie 可以在浏览器中被查看和修改。对于敏感数据，应该采取更安全的存储方法。
-
-
-
-### 6、全屏显示
-
-文档：https://vueuse.org/guide/#installation    https://vueuse.org/core/usefullscreen/#usage
-
-**（1）下载依赖**
-
-```sh
-npm i @vueuse/core
-```
-
-**（2）使用**
-
-```js
-import { useFullscreen } from '@vueuse/core'
-const { isFullscreen, enter, exit, toggle } = useFullscreen()//是否全屏，进去全屏，推出全屏，屏幕切换
+```vue
+<transition name="fade">
+    // 过度动画内容
+</transition>
+<style>
+.el-aside{transition: all 0.2s;}
+.fade-enter-from{opacity: 0;}// 进入前
+.fade-enter-to{opacity: 1;}// 进去后
+.fade-leave-from{opacity: 1;}// 离开前
+.fade-leave-to{ opacity: 0;}// 离开后
+.fade-enter-active,.fade-leave-active{transition: all 0.3s;}
+.fade-enter-active{transition-delay: 0.3s;}// 延迟
+</style>
 ```
 
 
 
 
 
-### 7、数字滚动
+
+
+# 七、自定义组件
+
+
+
+
+
+### 1、数字滚动
 
 文档：https://www.npmjs.com/package/gsap
 
@@ -748,80 +713,48 @@ watch(()=>props.value,()=>AnimateToValue())// 监听props.value的值执行Anima
 
 
 
-### 8、根据屏幕进行响应变化
-
-文档：https://vueuse.org/core/useresizeobserver/#usage
-
-```vue
-// 页面使用绑定节点
-<template>
-  <div ref="el">测试</div> 
-</template>
-<script setup>
-import { useResizeObserver } from '@vueuse/core'
-const el = ref(null)
-useResizeObserver(el, (entries) => myChart.resize())// 根据屏幕的大小eChart图表跟着变化
-</script>    
-```
 
 
 
-### 9、Animate.css 动画库
 
-文档：https://animate.style/#migration
+# 八、自定义rules规则验证
 
-**（1）下载依赖**
-
-```sh
-npm install animate.css --save
-```
-
-**（2）页面使用**
+创建utils/rules.ts文件
 
 ```js
-import 'animate.css';
-```
-
-**（3）查看代码**
-
-根据：https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.css 文档查看动画代码
-
-注：配合过渡动画使用
-
-```vue
-<transition name="fade">
-    // 过度动画内容
-</transition>
-<style>
-.el-aside{transition: all 0.2s;}
-.fade-enter-from{opacity: 0;}// 进入前
-.fade-enter-to{opacity: 1;}// 进去后
-.fade-leave-from{opacity: 1;}// 离开前
-.fade-leave-to{ opacity: 0;}// 离开后
-.fade-enter-active,.fade-leave-active{transition: all 0.3s;}
-.fade-enter-active{transition-delay: 0.3s;}// 延迟
-</style>
-```
-
-
-
-### 10、滚动条css设置
-
-```css
-::-webkit-scrollbar 滚动条整体部分
-::-webkit-scrollbar-thumb 滚动条里面的小方块，能向上向下移动
-::-webkit-scrollbar-track 滚动条的轨道（里面装有 Thumb
-::-webkit-scrollbar-button 滚动条的轨道的两端按钮，允许通过点击微调小方块的位置
-::-webkit-scrollbar-track-piece 内层轨道，滚动条中间部分（除去
-::-webkit-scrollbar-corner 边角，即两个滚动条的交汇处
-::-webkit-resizer 两个滚动条的交汇处上用于通过拖动调整元素大小的小控件注意此方案有兼容性问题，一般需要隐藏滚动条时我都是用一个色块通过定位盖上去，或者将子级元素调大，父级元素使用 overflow-hidden 截掉滚动条部分。暴力且直接。
+// 手机号验证
+export const phoneRule = (value: string) => {
+	return value && /^1[3-9][0-9]{9}$/.test(value);
+};
+// 邮箱验证
+export const emailRule = (value: string) => {
+	return value && /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/.test(value);
+};
+// 数字验证
+export const numberRule = (value: string) => {
+	return value && /^[-]?\d+$/.test(value);
+};
+// 英文验证
+export const englishRule = (value: string) => {
+	return value && /^[a-zA-Z]+$/.test(value);
+}
+// 网址格式验证
+export const websiteRule = (value: string) => {
+	return value && /(http|ftp|https):\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&:/~\+#]*[\w\-\@?^=%&/~\+#])?/.test(value)
+}
+// 特殊字符验证
+export const specialRule = (value: string) => {
+	return value && /[`~!@#$%^&*()_+<>?？\\:"{},.\/;'[\]]+/.test(value)
+}
 ```
 
 
 
 
 
-### 11、自动获取焦点
+# 九、自定义指令
+
+### 1、自动获取焦点
 
 注册一个自定义指令有全局注册与局部注册
 
@@ -886,7 +819,7 @@ directives: {
 
 
 
-### 12、表单防止重复提交
+### 2、表单防止重复提交
 
 表单防止重复提交这种情况设置一个`v-throttle`自定义指令来实现
 
@@ -916,9 +849,7 @@ Vue.directive('throttle', {
 
 
 
-
-
-### 13、图片懒加载
+### 3、图片懒加载
 
 在`component`文件夹中新建`LazyLoad`文件夹，在文件夹里新建`index.js`。
 
@@ -1039,7 +970,7 @@ Vue.use(LazyLoad,{
 
 
 
-### 14、一键 Copy的功能
+### 4、一键 Copy的功能
 
 1.首先建一个 js 文件（v-copy.js）。定义一个对象。（ 指令实际就是一个对象 ）
 
@@ -1125,9 +1056,187 @@ Vue.use(Directives);
 
 
 
+# 十、自定义函数方法
+
+### 1、键盘监听
+
+```js
+// 监听回车事件
+function onKeyUp(e){
+    if(e.key == "Enter") onSubmit()//执行提交事件
+}
+// 添加键盘监听
+onMounted(()=>{
+    document.addEventListener("keyup",onKeyUp)
+})
+// 移除键盘监听
+onBeforeUnmount(()=>{
+    document.removeEventListener("keyup",onKeyUp)
+})
+```
 
 
-### 15、开启GZip压缩
+
+
+
+### 2、全局loading进度条实现
+
+文档：https://www.npmjs.com/package/nprogress
+
+**（1）下载依赖**
+
+```sh
+npm i nprogress
+```
+
+**（2）引入css**
+
+```js
+// main.js
+import "nprogress/nprogress.css"
+```
+
+**（3）封装方法**
+
+```js
+import nprogress from 'nprogress'
+// 显示全屏loading
+export function showFullLoading(){
+  nprogress.start()
+}
+// 隐藏全屏loading
+export function hideFullLoading(){
+  nprogress.done()
+}
+```
+
+**（4）全局前后守卫使用**
+
+```js
+import { 
+    showFullLoading,
+    hideFullLoading
+} from "~/composables/util"
+// 全局前置守卫
+router.beforeEach(async (to,from,next)=>{
+    // 显示loading
+    showFullLoading()
+	next()
+})
+// 全局后置守卫
+router.afterEach((to, from) => hideFullLoading())
+```
+
+
+
+### 3、引入Cookie存储数据
+
+方式一：
+
+官网：https://vueuse.org/integrations/useCookies/#usecookies
+
+下载依赖：
+
+```sh
+npm i @vueuse/integrations
+```
+
+```sh
+npm i universal-cookie
+```
+
+定义js文件简单封装
+
+```js
+import { useCookies } from '@vueuse/integrations/useCookies'
+const TokenKey = "admin-token"
+const cookie=useCookies()
+// 获取token
+export function getToken(){
+    return cookie.get(TokenKey)
+}
+// 设置token
+export function setToken(token){
+    return cookie.set(TokenKey,token)
+}
+// 清楚token
+export function removeToken(){
+    return cookie.remove(TokenKey)
+}
+```
+
+
+
+方式二：
+
+1. **安装插件：** 你可以使用 `vue-cookies` 这样的插件来方便地操作 Cookie。首先，安装该插件：
+
+```sh
+npm install vue-cookies
+```
+
+1. **在 Vue 项目中使用：** 在你的 Vue 项目中，你需要引入并配置 `vue-cookies` 插件。在你的入口文件（例如 `main.js`）中进行配置：
+
+```js
+// main.js
+import Vue from 'vue';
+import VueCookies from 'vue-cookies';
+
+Vue.use(VueCookies);
+
+// 设置全局的 Cookie 选项，例如过期时间等
+Vue.$cookies.config('7d'); // 设置 Cookie 的过期时间为 7 天
+```
+
+1. **使用 Cookie 存储和获取数据：** 一旦配置完毕，你就可以在组件中使用 `this.$cookies` 来进行 Cookie 数据的存储和获取。
+
+```js
+export default {
+  methods: {
+    saveDataToCookie() {
+      // 存储数据到 Cookie
+      this.$cookies.set('key', 'value');
+    },
+    getDataFromCookie() {
+      // 从 Cookie 中获取数据
+      const value = this.$cookies.get('key');
+      console.log(value);
+    },
+  },
+};
+```
+
+请注意，Cookie 适合存储少量的数据，因为每个请求都会将 Cookie 发送到服务器，过多的 Cookie 数据可能会影响性能。对于较大的数据存储需求，你可能会考虑使用其他持久化方案，如 Local Storage 或 Vuex 插件。
+
+此外，考虑到安全性，不应该将敏感信息存储在 Cookie 中，因为 Cookie 可以在浏览器中被查看和修改。对于敏感数据，应该采取更安全的存储方法。
+
+
+
+
+
+# 十二、引入其他相关依赖
+
+### 1、根据屏幕进行响应变化
+
+文档：https://vueuse.org/core/useresizeobserver/#usage
+
+```vue
+// 页面使用绑定节点
+<template>
+  <div ref="el">测试</div> 
+</template>
+<script setup>
+import { useResizeObserver } from '@vueuse/core'
+const el = ref(null)
+useResizeObserver(el, (entries) => myChart.resize())// 根据屏幕的大小eChart图表跟着变化
+</script>    
+```
+
+
+
+
+
+### 2、开启GZip压缩
 
 拆完包之后，我们再用`gzip`做一下压缩 安装`compression-webpack-plugin`
 
@@ -1159,5 +1268,67 @@ configureWebpack: (config) => {
 ```
 const compression = require('compression')
 app.use(compression())  // 在其他中间件使用之前调用
+```
+
+
+
+
+
+### 3、全屏显示
+
+文档：https://vueuse.org/guide/#installation    https://vueuse.org/core/usefullscreen/#usage
+
+**（1）下载依赖**
+
+```sh
+npm i @vueuse/core
+```
+
+**（2）使用**
+
+```js
+import { useFullscreen } from '@vueuse/core'
+const { isFullscreen, enter, exit, toggle } = useFullscreen()//是否全屏，进去全屏，推出全屏，屏幕切换
+```
+
+
+
+### 4、图片懒加载配置
+
+安装依赖
+
+```vue
+npm install vue-lazyload 
+```
+
+在main.ts中引入
+
+```js
+import lazyPlugin from 'vue-lazyload';
+// 注册时可以配置额外的选项 
+app.use(lazyPlugin, {
+    // 配置项，您可以根据需要进行配置
+    // lazyComponent: true,
+    loading: '占位符图片的URL',
+    error: '加载错误时显示的图片URL',
+});
+// 在页面中使用
+ <img v-lazy='实际图片的URL'/>
+```
+
+
+
+# 十三、其他知识点
+
+### 1、滚动条css设置
+
+```css
+::-webkit-scrollbar 滚动条整体部分
+::-webkit-scrollbar-thumb 滚动条里面的小方块，能向上向下移动
+::-webkit-scrollbar-track 滚动条的轨道（里面装有 Thumb
+::-webkit-scrollbar-button 滚动条的轨道的两端按钮，允许通过点击微调小方块的位置
+::-webkit-scrollbar-track-piece 内层轨道，滚动条中间部分（除去
+::-webkit-scrollbar-corner 边角，即两个滚动条的交汇处
+::-webkit-resizer 两个滚动条的交汇处上用于通过拖动调整元素大小的小控件注意此方案有兼容性问题，一般需要隐藏滚动条时我都是用一个色块通过定位盖上去，或者将子级元素调大，父级元素使用 overflow-hidden 截掉滚动条部分。暴力且直接。
 ```
 
