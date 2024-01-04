@@ -668,10 +668,6 @@ import 'animate.css';
 
 # 七、自定义组件
 
-
-
-
-
 ### 1、数字滚动
 
 [文档](https://www.npmjs.com/package/gsap)
@@ -1619,7 +1615,7 @@ max([1,2,3,4,5,6])  // 6
 **(2)、数组最大值**
 
 ```js
-function min(arr) {
+export function min(arr) {
    if (!isArray(arr) && arr.length) return;
    return Math.min.apply(null, arr);
 }
@@ -1648,7 +1644,7 @@ min([1,2,3,4,5,6])  // 1
  * @param {number} max - 随机数的最大值（包括）
  * @returns {number} 生成的随机整数
  */
-function getRandom(min, max) {
+export function getRandom(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 ```
@@ -1668,7 +1664,7 @@ getRandom(1,2) // 1 随机生成1,2
 **去除首尾空格**
 
 ```js
-function trim(str) {
+export function trim(str) {
     return str.replace(/(^\s*)|(\s*$)/g, '');
 }
 ```
@@ -1676,7 +1672,7 @@ function trim(str) {
 **去除字符串所有空格**
 
 ```js
-function trimAll(str) {
+export function trimAll(str) {
     return str.replace(/(\s+)/g, ''); 
 }
 ```
@@ -1692,6 +1688,67 @@ trimAll(' web api ') // 'webapi'
 
 
 
+### 12、删除数组中的某个元素
+
+```js
+export function removeArr(arr, val) {
+    let index = arr.indexOf(val);
+    if (index > -1) arr.splice(index, 1);
+    return arr;
+}
+```
+
+举个栗子 → 🙌🌰
+
+```js
+removeArr([1,2,3,4,5,6,7,8],4) //  [1, 2, 3, 5, 6, 7, 8]
+```
+
+
+
+
+
+### 13、数组去重
+
+```js
+export function uniqueArr(arr) {
+    return Array.from(new Set(arr));
+}
+```
+
+举个栗子 → 🙌🌰
+
+```js
+uniqueArr([1, 2, 1, 3]) //[1, 2, 3]
+```
+
+
+
+
+
+### 14、获取验证码倒计时
+
+```js
+function getCode(time) {
+    let setInter = null,
+        codeText = '';
+    setInter = setInterval(() => {
+        if (time < 1) {
+            clearInterval(setInter);
+            codeText = '获取验证码';
+        } else {
+            codeText = `已发送${ time }s`;
+            time--;
+        }       
+    }, 1000);	
+}
+```
+
+举个栗子 → 🙌🌰
+
+```js
+getCode(5)
+```
 
 
 
@@ -1699,12 +1756,19 @@ trimAll(' web api ') // 'webapi'
 
 
 
+### 15、将手机号码4-7位转换成 *
 
+```js
+function replaceMobile(mobile) {
+    return Number.prototype.toString.call(mobile).replace(/1(\d{2})\d{4}(\d{4})/g,'1$1****$2');
+}
+```
 
+举个栗子 → 🙌🌰
 
-
-
-
+```js
+replaceMobile(18000009999) //"180****9999"
+```
 
 
 
