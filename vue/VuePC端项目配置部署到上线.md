@@ -60,7 +60,7 @@ export default defineConfig({
 
 (5)、引入Icon 图标
 
-官网：https://element-plus.gitee.io/zh-CN/component/icon.html#%E6%B3%A8%E5%86%8C%E6%89%80%E6%9C%89%E5%9B%BE%E6%A0%87
+[官网](https://element-plus.gitee.io/zh-CN/component/icon.html#%E6%B3%A8%E5%86%8C%E6%89%80%E6%9C%89%E5%9B%BE%E6%A0%87)
 
 下载依赖：
 
@@ -332,7 +332,7 @@ export function loginApi(data) {
 
 ### 3、设置反向代理解决跨域
 
-查看文档：https://cn.vitejs.dev/config/server-options.html
+[查看文档](https://cn.vitejs.dev/config/server-options.html)
 
 基于 vite 的项目，在 vite.config.js 文件中配置插件：
 
@@ -586,7 +586,7 @@ import 'normalize.css'
 
 ### 2、Windi CSS样式库的使用
 
-官网：https://cn.windicss.org/guide/
+[官网](https://cn.windicss.org/guide/)
 
 （1）.依赖安装
 
@@ -625,7 +625,7 @@ import 'virtual:windi.css'
 
 ### 3、Animate.css 动画库
 
-文档：https://animate.style/#migration
+[文档](https://animate.style/#migration)
 
 **（1）下载依赖**
 
@@ -674,7 +674,7 @@ import 'animate.css';
 
 ### 1、数字滚动
 
-文档：https://www.npmjs.com/package/gsap
+[文档](https://www.npmjs.com/package/gsap)
 
 **（1）下载依赖**
 
@@ -717,42 +717,11 @@ watch(()=>props.value,()=>AnimateToValue())// 监听props.value的值执行Anima
 
 
 
-# 八、自定义rules规则验证
-
-创建utils/rules.ts文件
-
-```js
-// 手机号验证
-export const phoneRule = (value: string) => {
-	return value && /^1[3-9][0-9]{9}$/.test(value);
-};
-// 邮箱验证
-export const emailRule = (value: string) => {
-	return value && /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/.test(value);
-};
-// 数字验证
-export const numberRule = (value: string) => {
-	return value && /^[-]?\d+$/.test(value);
-};
-// 英文验证
-export const englishRule = (value: string) => {
-	return value && /^[a-zA-Z]+$/.test(value);
-}
-// 网址格式验证
-export const websiteRule = (value: string) => {
-	return value && /(http|ftp|https):\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&:/~\+#]*[\w\-\@?^=%&/~\+#])?/.test(value)
-}
-// 特殊字符验证
-export const specialRule = (value: string) => {
-	return value && /[`~!@#$%^&*()_+<>?？\\:"{},.\/;'[\]]+/.test(value)
-}
-```
 
 
 
 
-
-# 九、自定义指令
+# 八、自定义指令
 
 ### 1、自动获取焦点
 
@@ -1056,9 +1025,50 @@ Vue.use(Directives);
 
 
 
-# 十、自定义函数方法
+# 九、自定义函数方法
 
-### 1、键盘监听
+### 1、自定义验证规则
+
+创建utils/rules.ts文件
+
+```js
+// 手机号验证
+export const phoneRule = (value: string) => {
+	return value && /^1[3-9][0-9]{9}$/.test(value);
+};
+// 固定电话
+export function checkTel (tel) {
+   return /^((d{3,4})|d{3,4}-|s)?d{5,14}$/.test(tel)
+}
+// 邮箱验证
+export const emailRule = (value: string) => {
+	return value && /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/.test(value);
+};
+// 数字验证
+export const numberRule = (value: string) => {
+	return value && /^[-]?\d+$/.test(value);
+};
+// 英文验证
+export const englishRule = (value: string) => {
+	return value && /^[a-zA-Z]+$/.test(value);
+}
+// 网址格式验证
+export const websiteRule = (value: string) => {
+	return value && /(http|ftp|https):\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&:/~\+#]*[\w\-\@?^=%&/~\+#])?/.test(value)
+}
+// 特殊字符验证
+export const specialRule = (value: string) => {
+	return value && /[`~!@#$%^&*()_+<>?？\\:"{},.\/;'[\]]+/.test(value)
+}
+```
+
+
+
+
+
+
+
+### 2、键盘监听
 
 ```js
 // 监听回车事件
@@ -1079,9 +1089,9 @@ onBeforeUnmount(()=>{
 
 
 
-### 2、全局loading进度条实现
+### 3、全局loading进度条实现
 
-文档：https://www.npmjs.com/package/nprogress
+[文档](https://www.npmjs.com/package/nprogress)
 
 **（1）下载依赖**
 
@@ -1129,13 +1139,15 @@ router.afterEach((to, from) => hideFullLoading())
 
 
 
-### 3、引入Cookie存储数据
 
-方式一：
 
-官网：https://vueuse.org/integrations/useCookies/#usecookies
+### 4、设置、获取、删除cookie
 
-下载依赖：
+- [ ] **方式一：引入vueuse的Cookie存储数据**
+
+[官网](https://vueuse.org/integrations/useCookies/#usecookies)
+
+**(1)、下载依赖：**
 
 ```sh
 npm i @vueuse/integrations
@@ -1145,7 +1157,7 @@ npm i @vueuse/integrations
 npm i universal-cookie
 ```
 
-定义js文件简单封装
+**(2)、定义js文件简单封装**
 
 ```js
 import { useCookies } from '@vueuse/integrations/useCookies'
@@ -1167,15 +1179,15 @@ export function removeToken(){
 
 
 
-方式二：
+- [ ] **方式二：安装vue-cookies插件**
 
-1. **安装插件：** 你可以使用 `vue-cookies` 这样的插件来方便地操作 Cookie。首先，安装该插件：
+**(1)、安装插件：** 你可以使用 `vue-cookies` 这样的插件来方便地操作 Cookie。首先，安装该插件：
 
 ```sh
 npm install vue-cookies
 ```
 
-1. **在 Vue 项目中使用：** 在你的 Vue 项目中，你需要引入并配置 `vue-cookies` 插件。在你的入口文件（例如 `main.js`）中进行配置：
+**(2)、在 Vue 项目中使用：** 在你的 Vue 项目中，你需要引入并配置 `vue-cookies` 插件。在你的入口文件（例如 `main.js`）中进行配置：
 
 ```js
 // main.js
@@ -1188,7 +1200,7 @@ Vue.use(VueCookies);
 Vue.$cookies.config('7d'); // 设置 Cookie 的过期时间为 7 天
 ```
 
-1. **使用 Cookie 存储和获取数据：** 一旦配置完毕，你就可以在组件中使用 `this.$cookies` 来进行 Cookie 数据的存储和获取。
+**(3)、使用 Cookie 存储和获取数据：** 一旦配置完毕，你就可以在组件中使用 `this.$cookies` 来进行 Cookie 数据的存储和获取。
 
 ```js
 export default {
@@ -1212,9 +1224,497 @@ export default {
 
 
 
+- [ ] **方式三：document**
+
+**(1)、设置cookie,设置max-age 属性指定cookie 的有效期（秒）**
+
+```js
+/**
+ * 设置 cookie。
+ *
+ * @param {string} name - cookie 名称
+ * @param {string} value - cookie 值
+ * @param {number} [expiretime] - cookie 过期时间（以秒为单位）
+ * @returns {void}
+ */
+function setCookie(name, value, expiretime) {
+    // 编码 cookie 值，并设置默认的 path
+    let cookie = `${name}=${encodeURIComponent(value)}; path=/`;
+    // 如果提供了过期时间，添加 max-age 属性
+    if (typeof expiretime === 'number') {
+        cookie += `; max-age=${expiretime}`;
+    }
+    // 将 cookie 设置到 document.cookie
+    document.cookie = cookie;
+}
+```
+
+举个栗子 → 🙌🌰：
+
+```js
+setCookie('id',1,1)
+document.cookie //"id=1"
+```
+
+------
+
+**(2)、读取cookie,将设置的cookie值拿到单个key 对应的值**
+
+```js
+/**
+ * 从 cookie 中读取指定名称的值。
+ *
+ * @param {string} name - 要读取的 cookie 名称
+ * @returns {string|null} 指定名称的 cookie 值，如果未找到则返回 null
+ */
+function getCookie(name) {
+    let cookie = document.cookie;
+    let arrCookie = cookie.split('; ');
+    // 遍历 cookie 数组，查找指定名称的 cookie 值
+    for (let i = 0; i < arrCookie.length; i++) {
+        let arr = arrCookie[i].split('=');
+        if (arr[0] === name) {
+            return arr[1]; // 返回指定名称的 cookie 值
+        }
+    }
+    // 如果未找到指定名称的 cookie，返回 null
+    return null;
+}
+```
+
+举个栗子 → 🙌🌰
+
+```js
+getCookie('id') // 1
+```
+
+------
+
+**(3)、删除对应设置的cookie**
+
+max-age为0时，删除cookie
+
+```js
+/**
+ * 删除指定名称的 cookie。
+ *
+ * @param {string} name - 要删除的 cookie 名称
+ * @returns {void}
+ */
+function deleteCookie(name) {
+    let currentCookie = getCookie(name);
+    // 如果找到指定名称的 cookie，设置其 max-age 为 0 以删除
+    if (currentCookie) {
+        document.cookie = `${name}=${currentCookie}; max-age=0; path=/`;
+    }
+}
+```
+
+举个栗子 → 🙌🌰
+
+```js
+deleteCookie('id')
+document.cookie // ''
+```
 
 
-# 十二、引入其他相关依赖
+
+
+
+
+
+
+
+### 5、防抖节流函数的应用
+
+**(1)、防抖函数的应用**
+
+在一定的时间内，多次执行同一个函数，只会触发一次
+
+```js
+/**
+ * 创建一个 debounce（防抖）函数，用于延迟执行目标函数。
+ *
+ * @param {Function} fn - 目标函数
+ * @param {number} delay - 延迟时间（以毫秒为单位）
+ * @returns {Function} 包装后的防抖函数
+ */
+function debounce(fn, delay) {
+    let timer = null;
+    /**
+     * 包装后的防抖函数，用于延迟执行目标函数。
+     *
+     * @returns {void}
+     */
+    return function () {
+        if (timer) {
+            clearTimeout(timer);
+        }
+        timer = setTimeout(fn, delay);
+    };
+}
+```
+
+------
+
+**(2)、节流函数的应用**
+
+在一定时间内，多次执行同一个函数，只有第一次执行才会触发。
+
+```js
+/**
+ * 创建一个 throttle（节流）函数，用于限制目标函数的调用频率。
+ *
+ * @param {Function} fn - 目标函数
+ * @param {number} delay - 两次调用之间的最小时间间隔（以毫秒为单位）
+ * @returns {Function} 包装后的节流函数
+ */
+function throttle(fn, delay) {
+    let flag = true;
+    /**
+     * 包装后的节流函数，用于限制目标函数的调用频率。
+     *
+     * @returns {void}
+     */
+    return function () {
+        if (!flag) {
+            return false;
+        }
+        flag = false;
+        setTimeout(() => {
+            fn();
+            flag = true;
+        }, delay);
+    };
+}
+```
+
+举个栗子 → 🙌🌰
+场景：以一个输入框为例，监听鼠标弹起事件，在1s时间内， 输出时间戳，多次输入，只会执行一次。
+
+```js
+let ele = document.getElementsByTagName('input')[0];
+ele.addEventListener('keyup',throttle(()=>{
+    console.log(Date.now());
+},1000));
+```
+
+
+
+
+
+### 6、Url参数与对象相互转换并取值
+
+**(1)、将Url参数转换成对象没有参数时返回空对象**
+
+```js
+/**
+ * 从当前页面 URL 中获取查询参数，并返回一个包含参数键值对的对象。
+ *
+ * @returns {Object} 包含查询参数的对象
+ */
+function getQueryObject() {
+    // 获取 URL 中的查询参数部分，兼容 hash 模式
+    let search = window.location.search.substr(1) || window.location.hash.split('?')[1],
+        obj = {};
+    // 如果没有查询参数，返回空对象
+    if (!search) return obj;
+    // 将查询参数字符串分割为数组
+    let paramsArr = search.split('&');
+    // 遍历数组，将参数添加到对象中
+    for (let i of paramsArr) {
+        let arr = i.split('=');
+        obj[arr[0]] = arr[1]; // 设置对象的键值对
+    }
+    // 返回包含查询参数的对象
+    return obj;
+}
+```
+
+举个栗子 → 🙌🌰：www.baidu.com?id=1&type=2
+
+```js
+getQueryObject() // {id: "1", type: "2"}
+```
+
+------
+
+
+
+**(2)、将对象转换成Url需要的参数 tag标记是否带问号(?)**
+
+```js
+/**
+ * 将对象格式化为 URL 查询参数字符串。
+ *
+ * @param {Object} obj - 包含键值对的对象
+ * @param {boolean} [tag=true] - 是否在返回的字符串中包含问号 (?)
+ * @returns {string} 格式化后的 URL 查询参数字符串
+ */
+function formatObjToParamStr(obj, tag = true) {
+    let data = [],
+        dStr = '';
+    for (let key in obj) {
+        data.push(`${key}=${obj[key]}`);
+    }
+    dStr = tag ? '?' + data.join('&') : data.join('&');
+    return dStr;
+}
+```
+
+举个栗子 → 🙌🌰：
+
+```js
+formatObjToParamStr({id:1,type:2}) // "?id=1&type=2"
+formatObjToParamStr({id:1,type:2},false) // "id=1&type=2"
+```
+
+------
+
+
+
+**(3)、通过参数名获取url中的参数值****
+
+```js
+/**
+ * 从指定 URL 中获取指定名称的查询参数的值。
+ *
+ * @param {string} name - 要获取的查询参数的名称
+ * @param {string} [url=window.location.href] - 要解析的 URL 字符串（默认为当前页面 URL）
+ * @returns {string} 查询参数的值，如果没有找到则返回空字符串
+ */
+function getUrlParam(name, url) {
+    // 如果未提供 url 参数，则使用当前页面的 URL
+    url = url || window.location.href;
+    // 从 URL 中解析查询参数部分
+    let search = url.includes('?') ? url.split('?')[1] : url.split('#')[1];
+    // 如果没有查询参数，返回空字符串
+    if (!search) return '';
+    // 将查询参数字符串分割为数组
+    let paramsArr = search.split('&');
+
+    // 遍历数组，查找指定名称的查询参数
+    for (let i of paramsArr) {
+        let arr = i.split('=');
+        if (arr[0] === name) {
+            return arr[1]; // 返回查询参数的值
+        }
+    }
+    // 如果没有找到指定名称的查询参数，返回空字符串
+    return '';
+}
+```
+
+举个栗子 → 🙌🌰：www.baidu.com?id=1&type=2
+
+```js
+getUrlParam('id','www.baidu.com?id=1&type=2') // 1
+```
+
+
+
+### 7、检查数据类型
+
+**(1)、检查数据类型是否是数组**
+
+```js
+export function isArray (val) {
+   return Object.prototype.toString.call(val) === '[object Array]';
+}
+```
+
+举个栗子 → 🙌🌰
+
+```js
+isArray([]) // true
+isArray({}) // false
+```
+
+------
+
+
+
+**(2)、检查数据类型是否是对象**
+
+```js
+export function isObject(val) {
+   return Object.prototype.toString.call(val) === '[object Object]';
+}
+```
+
+举个栗子 → 🙌🌰
+
+```js
+isObject([]) // false
+isObject({}) // true
+```
+
+------
+
+
+
+**(3)、检查数据类型是否是数值**
+
+```js
+function isNumber(val) {
+   return Object.prototype.toString.call(val) === '[object Number]';
+}
+```
+
+举个栗子 → 🙌🌰
+
+```js
+isNumber(12) // true
+isNumber({}) // false
+```
+
+
+
+
+
+### 8、检测对象是否含有某个属性
+
+```js
+/**
+ * 检查对象是否包含指定属性。
+ *
+ * @param {Object} obj - 要检查的对象
+ * @param {string} key - 要检查的属性名
+ * @returns {boolean} 如果对象包含指定属性，返回 true；否则返回 false
+ */
+function checkObjHasAtrr(obj, key) {
+    return Object.prototype.hasOwnProperty.call(obj, key);
+}
+```
+
+举个栗子 → 🙌🌰
+
+```js
+checkObjHasAtrr({id: 1, type: 2}, 'id') // true
+```
+
+
+
+
+
+### 9、检测数组最大最小值
+
+**(1)、数组最大值**
+
+```js
+function max (arr) {
+   if (!isArray(arr) && arr.length) return;
+   return Math.max.apply(null,arr);
+}
+```
+
+举个栗子 → 🙌🌰
+
+```js
+max([1,2,3,4,5,6])  // 6
+```
+
+------
+
+**(2)、数组最大值**
+
+```js
+function min(arr) {
+   if (!isArray(arr) && arr.length) return;
+   return Math.min.apply(null, arr);
+}
+```
+
+举个栗子 → 🙌🌰
+
+```js
+min([1,2,3,4,5,6])  // 1
+```
+
+
+
+
+
+### 10、生成随机范围的随机数
+
+说明： Math.floor：下取整
+			Math.random：生成0~1 的随机数
+
+```js
+/**
+ * 生成指定范围内的随机整数（包括边界值）。
+ *
+ * @param {number} min - 随机数的最小值（包括）
+ * @param {number} max - 随机数的最大值（包括）
+ * @returns {number} 生成的随机整数
+ */
+function getRandom(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+```
+
+举个栗子 → 🙌🌰
+
+```js
+getRandom(1,2) // 1 随机生成1,2
+```
+
+
+
+
+
+### 11、去除字符串空
+
+**去除首尾空格**
+
+```js
+function trim(str) {
+    return str.replace(/(^\s*)|(\s*$)/g, '');
+}
+```
+
+**去除字符串所有空格**
+
+```js
+function trimAll(str) {
+    return str.replace(/(\s+)/g, ''); 
+}
+```
+
+举个栗子 → 🙌🌰
+
+```js
+trim(' web api ') // 'web api'
+trimAll(' web api ') // 'webapi'
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# 十、其他相关
 
 ### 1、根据屏幕进行响应变化
 
@@ -1318,9 +1818,9 @@ app.use(lazyPlugin, {
 
 
 
-# 十三、其他知识点
 
-### 1、滚动条css设置
+
+### 5、滚动条css设置
 
 ```css
 ::-webkit-scrollbar 滚动条整体部分
@@ -1331,4 +1831,8 @@ app.use(lazyPlugin, {
 ::-webkit-scrollbar-corner 边角，即两个滚动条的交汇处
 ::-webkit-resizer 两个滚动条的交汇处上用于通过拖动调整元素大小的小控件注意此方案有兼容性问题，一般需要隐藏滚动条时我都是用一个色块通过定位盖上去，或者将子级元素调大，父级元素使用 overflow-hidden 截掉滚动条部分。暴力且直接。
 ```
+
+
+
+
 
