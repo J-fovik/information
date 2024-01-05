@@ -1774,6 +1774,103 @@ replaceMobile(18000009999) //"180****9999"
 
 
 
+### 16、值是否存在于数组
+
+用于页面判断页面active状态
+
+```js
+/**
+ * 检查数组中是否存在指定元素
+ * @param {Array} list - 要检查的数组
+ * @param {*} key - 要检查的元素
+ * @returns {boolean} - 如果数组中存在指定元素，返回 true；否则返回 false
+ */
+export function isExistInArray(list, key) {
+  return list.indexOf(key) > -1;
+}
+
+```
+
+
+
+### 17、截取数组
+
+```js
+/**
+ * 获取数组的前几个元素
+ * @param {Array} list - 要切片的数组
+ * @param {number} number - 要获取的元素个数
+ * @returns {Array} - 返回包含前几个元素的新数组
+ */
+export function sliceArray(list, number) {
+  return list.slice(0, number);
+}
+```
+
+
+
+
+
+### 18、处理浮点数
+
+```js
+/**
+ * 对数字进行四舍五入
+ * @param {number} num - 要进行四舍五入的数字
+ * @param {number} decimalPlaces - 要保留的小数位数，默认为 2
+ * @returns {number} - 返回四舍五入后的数字
+ */
+export function roundNumber(num, decimalPlaces = 2) {
+  const factor = Math.pow(10, decimalPlaces);
+  return Math.round(num * factor) / factor;
+}
+```
+
+
+
+### 19、大额数字转换
+
+```js
+export const numberFormat = (val: number | string) : string | number => {
+	const num = (val as any) * 1;
+	if (num > 10000) {
+		let sizesValue = '';
+		if (num > 10000 && num < 99999999) {
+			sizesValue = '万';
+		} else if (num > 100000000) {
+			sizesValue = '亿';
+		}
+		const i = Math.floor(Math.log(num) / Math.log(10000));
+		return `${(num / Math.pow(10000, i)).toFixed(1)}${sizesValue}`;
+	}
+	return turnThousandth(`${val}`);
+};
+```
+
+
+
+
+
+### 20、download二进制文件
+
+```js
+export const downloadBlob = (res: any, name?: string) => {
+	const blob = new Blob([res], {
+		type: 'text/plain;charset=utf-8',
+	});
+	const downloadElement = document.createElement('a'); //创建一个a 虚拟标签
+	const href = window.URL.createObjectURL(blob); // 创建下载的链接
+	downloadElement.href = href;
+	downloadElement.download = decodeURI(name?.replace(/%/g, '%25') ?? ''); // 下载后文件名
+	document.body.appendChild(downloadElement);
+	downloadElement.click(); // 点击下载
+	document.body.removeChild(downloadElement); // 下载完成移除元素
+	window.URL.revokeObjectURL(href);
+};
+```
+
+
+
 
 
 
