@@ -1930,7 +1930,28 @@ export const downloadBlob = (res: any, name?: string) => {
 
 
 
+### 21、点击复制文本
 
+```js
+import useClipboard from 'vue-clipboard3';
+const { toClipboard } = useClipboard();
+// 点击复制文本
+const copyText = (text: string) => {
+    return new Promise((resolve, reject) => {
+        try {
+            //复制
+            toClipboard(text);
+            //下面可以设置复制成功的提示框等操作
+            ElMessage.success('复制成功');
+            resolve(text);
+        } catch (e) {
+            //复制失败
+            ElMessage.error(t('复制失败'));
+            reject(e);
+        }
+    });
+};
+```
 
 
 
