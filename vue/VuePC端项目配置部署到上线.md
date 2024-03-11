@@ -1955,6 +1955,46 @@ const copyText = (text: string) => {
 
 
 
+
+
+### 22、统计函数
+
+```js
+/**
+* 对数字进行四舍五入
+* @param {Array} array - 要进行统计的数组
+* @param {Function} generateKey - 回调传入key
+*/
+function countBy(array, generateKey) {
+    const result = {};
+    // 遍历数组
+    for (const u of array) {
+        // 回调获取key
+        const key = generateKey(u);
+        if (result[key]) {
+            result[key]++;
+    	} else {
+    		result[key] = 1;
+    	}
+    }
+    return result;
+}
+```
+
+```js
+const arr = [
+            { name: '小明', sex: '男', age: 22 },
+            { name: '小明', sex: '女', age: 12 },
+            { name: '小明', sex: '男', age: 19 },
+            { name: '小明11', sex: '女', age: 18 }]
+
+        console.log(countBy(arr, (u) => u.sex));//{男: 2, 女: 2}
+        console.log(countBy(arr, u => u.name.length))// {2: 3, 4: 1}
+        console.log(countBy(arr, u => u.age > 18 ? '成年' : '未成年'));// {成年: 2, 未成年: 2}
+```
+
+
+
 # 十、其他相关
 
 ### 1、根据屏幕进行响应变化
