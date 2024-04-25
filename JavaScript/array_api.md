@@ -455,6 +455,52 @@ let sum = numbers.reduce((acc, num) => acc + num, 0);
 // sum 现在为 15
 ```
 
+```js
+const list: [
+      { yxmc: "复旦大学", zySeq: 1, otherValue1: "value1", otherValue2: "value2" },
+      { yxmc: "复旦大学", zySeq: 2, otherValue1: "value3", otherValue2: "value4" },
+      { yxmc: "山东大学", zySeq: 3, otherValue1: "value5", otherValue2: "value6" },
+      { yxmc: "山东大学", zySeq: 4, otherValue1: "value7", otherValue2: "value8" },
+    ],
+// acc(累加器), cur(当前值)
+const newList = list.reduce((acc, cur) => {
+  // 检查 acc 数组中是否已经存在相同 yxmc 的项
+  const existingItem = acc.find(item => item.yxmc === cur.yxmc);
+  if (existingItem) {
+    // 如果存在，将当前项的 zySeq 值添加到已存在的项的 child 数组中
+    existingItem.child.push(cur.zySeq);
+  } else {
+    // 如果不存在，创建一个新的项并加入数组
+    // 同时解构其他值并包含在新的项中
+    acc.push({
+      yxmc: cur.yxmc,
+      child: [cur.zySeq],
+      otherValue1: cur.otherValue1,
+      otherValue2: cur.otherValue2,
+    });
+  }
+  // 返回更新后的 acc
+  return acc;
+}, []);
+/*
+[{ yxmc: '复旦大学', child: [1, 2], otherValue1: 'value1', otherValue2: 'value2'},
+  { yxmc: '山东大学', child: [3, 4], otherValue1: 'value5', otherValue2: 'value6'}]
+*/
+```
+
+```js
+const numbers = [1, 2, 3, 4, 5];
+
+const sum = numbers.reduce((accumulator, currentValue) => {
+  console.log(`accumulator: ${accumulator}, currentValue:${currentValue}`);
+  return accumulator + currentValue;
+}, 0); // 0 是初始值
+
+console.log(`Total sum: ${sum}`);
+```
+
+
+
 
 
 #### forEach()
@@ -725,7 +771,7 @@ console.log(strings); // 输出: ["a", "b", "c"]
 
 `find()`用于找出第一个符合条件的数组成员
 
-参数是一个回调函数，接受三个参数依次为当前的值、当前的位置和原数组
+参数是一个回调函数，接受三个参数依次为当前的**值**、当前的位置和原数组
 
 ```js
 [1, 5, 10, 15].find(function(value, index, arr) {
@@ -733,7 +779,7 @@ console.log(strings); // 输出: ["a", "b", "c"]
 }) // 10
 ```
 
-`findIndex`返回第一个符合条件的数组成员的位置，如果所有成员都不符合条件，则返回`-1`
+`findIndex`返回第一个符合条件的数组成员的**位置**，如果所有成员都不符合条件，则返回`-1`
 
 ```javascript
 [1, 5, 10, 15].findIndex(function(value, index, arr) {
@@ -876,7 +922,13 @@ const list = [{
 // childArray = ['1','2','3','a','b','c']
 ```
 
+
+
+
+
 #### Object.groupBy
+
+用于数组分组
 
 ```js
 const list = [
