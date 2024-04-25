@@ -95,23 +95,7 @@ Object.is(NaN, NaN) // true
 
 
 
-#### Object.assign()
 
-`Object.assign()`方法用于对象的合并，将源对象`source`的所有可枚举属性，复制到目标对象`target`
-
-`Object.assign()`方法的第一个参数是目标对象，后面的参数都是源对象
-
-```javascript
-const target = { a: 1, b: 1 };
-
-const source1 = { b: 2, c: 2 };
-const source2 = { c: 3 };
-
-Object.assign(target, source1, source2);
-target // {a:1, b:2, c:3}
-```
-
-注意：`Object.assign()`方法是浅拷贝，遇到同名属性会进行替换
 
 
 
@@ -223,6 +207,10 @@ Object.values(obj)
 
 
 
+
+
+
+
 #### Object.entries()
 
 返回一个对象自身的（不含继承的）所有可遍历（enumerable）属性的键值对的数组
@@ -248,6 +236,41 @@ console.log(subjects); // ["Math", "History", "Math", "History"]
 console.log(scores);   // ["99", "78", "99", "88"]
 ```
 
+```js
+const object1 = {
+  a: 'somestring',
+  b: 42,
+};
+for (const [key, value] of Object.entries(object1)) {
+  console.log(`${key}: ${value}`);
+}
+// "a: somestring"
+// "b: 42"
+
+```
+
+
+
+#### Object.assign()
+
+`Object.assign()`方法用于对象的合并，将源对象`source`的所有可枚举属性，复制到目标对象`target`
+
+`Object.assign()`方法的第一个参数是目标对象，后面的参数都是源对象
+
+```javascript
+const target = { a: 1, b: 1 };
+
+const source1 = { b: 2, c: 2 };
+const source2 = { c: 3 };
+
+Object.assign(target, source1, source2);
+target // {a:1, b:2, c:3}
+```
+
+注意：`Object.assign()`方法是浅拷贝，遇到同名属性会进行替换
+
+
+
 
 
 #### Object.fromEntries()
@@ -261,6 +284,55 @@ Object.fromEntries([
 ])
 // { foo: "bar", baz: 42 }
 ```
+
+
+
+#### Object.groupBy()
+
+语法：Object.groupBy(items, callbackFn)
+
+静态方法根据提供的回调函数返回的字符串值对给定可迭代对象中的元素进行分组。返回的对象具有每个组的单独属性，其中包含组中的元素的数组。
+
+```js
+const inventory = [
+  { name: "芦笋", type: "蔬菜", quantity: 5 },
+  { name: "香蕉", type: "水果", quantity: 0 },
+  { name: "山羊", type: "肉", quantity: 23 },
+  { name: "樱桃", type: "水果", quantity: 5 },
+  { name: "鱼", type: "肉", quantity: 22 },
+];
+
+```
+
+```js
+const result = Object.groupBy(inventory, ({ type }) => type);
+// const result = Object.groupBy(inventory, o=>o.type);
+/* 结果是：
+{
+  蔬菜: [ { name: "芦笋", type: "蔬菜", quantity: 5 },],
+  水果: [{ name: "香蕉", type: "水果", quantity: 0 },{ name: "樱桃", type: "水果", quantity: 5 }],
+  肉: [{ name: "山羊", type: "肉", quantity: 23 },{ name: "鱼", type: "肉", quantity: 22 }]
+}
+*/
+```
+
+```js
+function myCallback({ quantity }) {
+  return quantity > 5 ? "ok" : "restock";
+}
+const result2 = Object.groupBy(inventory, myCallback);
+/* 结果是：
+{
+  restock: [ { name: "芦笋", type: "蔬菜", quantity: 5 },
+  			{ name: "香蕉", type: "水果", quantity: 0 },
+    		{ name: "樱桃", type: "水果", quantity: 5 } ],
+  ok: [   { name: "山羊", type: "肉", quantity: 23 },
+  		 { name: "鱼", type: "肉", quantity: 22 }]
+}
+*/
+```
+
+
 
 
 
