@@ -876,7 +876,19 @@ const list = [{
 // childArray = ['1','2','3','a','b','c']
 ```
 
+#### Object.groupBy
 
+```js
+const list = [
+	{name:'join',sex:'男'},
+	{name:'join',sex:'女'},
+	{name:'aaa',sex:'男'},
+	{name:'join',sex:'女'},
+	{name:'bbb',sex:'男'},
+	{name:'join',sex:'女'},
+]
+const newList = Object.groupBy(list,o=>o.sex)//女: [{…}, {…}, {…}],男: [{…}, {…}, {…}]
+```
 
 
 
