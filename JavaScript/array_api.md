@@ -450,12 +450,6 @@ let evenNumbers = numbers.filter(num => num % 2 === 0);
 对数组的所有元素执行一个提供的函数，将它们归并为单个值。
 
 ```js
-let numbers = [1, 2, 3, 4, 5];
-let sum = numbers.reduce((acc, num) => acc + num, 0);
-// sum 现在为 15
-```
-
-```js
 const list: [
       { yxmc: "复旦大学", zySeq: 1, otherValue1: "value1", otherValue2: "value2" },
       { yxmc: "复旦大学", zySeq: 2, otherValue1: "value3", otherValue2: "value4" },
@@ -496,7 +490,7 @@ const sum = numbers.reduce((accumulator, currentValue) => {
   return accumulator + currentValue;
 }, 0); // 0 是初始值
 
-console.log(`Total sum: ${sum}`);
+console.log(`Total sum: ${sum}`);// 15
 ```
 
 
@@ -918,7 +912,7 @@ const list = [{
   name: "字母",
   children: [{ name: "a"}, {name: "b" }, { name: "c"}]
 }];
- const childArray = this.data.moreList.flatMap(item => item.children).map(o => o.name);
+ const childArray = list.flatMap(item => item.children).map(o => o.name);
 // childArray = ['1','2','3','a','b','c']
 ```
 
